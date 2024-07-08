@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 Created on Fri Mar 24 17:02:51 2023
 
@@ -234,7 +238,6 @@ def process(img):
     return number_1,number_2,coordinates_1,coordinates_2
 
 
-#do not remove the line below and put all your runtime code down there so that this file can be imported without executing anything
 def highlight(image,coordinates_1,coordinates_2,ax=None):
     #do not change this function
     if ax is None:
@@ -245,15 +248,31 @@ def highlight(image,coordinates_1,coordinates_2,ax=None):
     for x,y in coordinates_2:
         ax.plot(x,y,'wo')
 
+
+
+card = []
 #do not remove the line below and put all your runtime code down there so that this file can be imported without executing anything
 if __name__ == "__main__":
     #read an image
-    image = io.imread('20230113_102446.jpg')
-    #get the numbers from the function
-    n1,n2,coo1,coo2 = process(image)
-    #plot it
-    highlight(image,coo1,coo2)
-    plt.show()
+    with open('image_directory.csv','r') as M:
+        Normal = M.readlines()
+        
+    for i in range(len(Normal)):
+        N = Normal[i]
+        N=N.replace('"','')
+        N=N.replace('\n','')
+        card.append(N)
+
+        
+    for i in range(len(card)-12,len(card)):
+        image = io.imread(card[i])
+        #get the numbers from the function
+        n1,n2,coo1,coo2 = process(image)
+        #plot it
+        highlight(image,coo1,coo2)
+        plt.title(card[i])
+        plt.show()
+        print(len(Normal)-i)
 
 
 
